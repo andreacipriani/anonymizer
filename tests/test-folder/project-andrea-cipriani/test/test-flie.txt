@@ -2,5 +2,5 @@ This line shouldn't be changed
 My name is Andrea Cipriani
 You can also write it as AnDrEa Cipriani or AndreaCipriani and should be replaced
 My nickname is andrea.cipriani
-my email is not andreacipriani@g****.com because someone else has it
-on gmail andrea.cipriani@g****.com is an alias to andreacipriani@g****.com
+My email is not andreacipriani@g****.com because someone else has it
+On gmail andrea.cipriani@g****.com is an alias to andreacipriani@g****.com
