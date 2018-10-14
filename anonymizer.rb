@@ -1,5 +1,6 @@
 #!/usr/bin/ruby
-require 'fileutils'
+require "fileutils"
+require "shellwords"
 
 # Configuration
 
