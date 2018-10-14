@@ -28,9 +28,27 @@ def replaceIfMatching(string, replacements)
 	return string
 end
 
+def renameDirectoryIfMatching(folder_to_be_renamed, file, replacements)
+	renamed_file = replaceIfMatching(file, replacements)
+	if renamed_file != file
+		folder_to_be_renamed[file] = renamed_file
+	end
+	return folder_to_be_renamed
+end
+
 def replaceContentOfFileIfMatching(file, replacements)
 	content = File.read(file)
-	return replaceIfMatching(content, replacements)
+	new_content = replaceIfMatching(content, replacements)
+	if new_content != content
+		puts "replacing occurences in file #{file}"
+		File.open(file, "w") { |file| file.puts new_content }
+	end
+end
+
+def isText(filename)
+	escaped_filename = filename.shellescape
+	output = `file -b --mime-type #{escaped_filename} | sed 's|/.*||'`
+  	return output =~ /text/i
 end
 
 # Script
@@ -39,15 +57,14 @@ replacements = { your_name => anonymouse_name, your_surname => anonymouse_surnam
 FileUtils.copy_entry target_folder_path, destination_folder_path
 folder_to_be_renamed = { } 
 
-Dir.glob(destination_folder_path + "**/*") do |file|
+Dir.glob(destination_folder_path + "/**/*") do |file|
 	is_directory = File.directory?(file)
 	if is_directory
-		renamed_file = replaceIfMatching(file, replacements)
-		folder_to_be_renamed[file] = renamed_file
+		folder_to_be_renamed = renameDirectoryIfMatching(folder_to_be_renamed, file, replacements)
 	else
-		new_content = replaceContentOfFileIfMatching(file, replacements)
-		puts "replacing occurences in file #{file}"
-		File.open(file, "w") { |file| file.puts new_content }
+		if isText(file)
+			replaceContentOfFileIfMatching(file, replacements)
+		end
 	end
 end
 
