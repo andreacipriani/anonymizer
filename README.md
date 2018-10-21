@@ -1,8 +1,6 @@
 # Anonymizer
 
-A simple Ruby tool to replace all references to specific words from all files in a folder.
-
-Why? 🕵️‍ Do you want to remove your name/surname from a project? Run it!
+🕵️‍ A simple Ruby tool to replace all references to specific words from all files in a folder.
 
 ### How to use it
 
